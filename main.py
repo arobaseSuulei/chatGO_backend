@@ -1,4 +1,5 @@
 import os
+import time
 from supabase import create_client, Client
 from transformers import pipeline
 
@@ -14,30 +15,20 @@ response = supabase.table("chatGO-analyzer").select("msg,id").execute()
 
 classifier = pipeline("sentiment-analysis")
 
-    # Afficher la réponse pour tester et boucler
-for i in response.data:
-    print ('debut')
-    print(i['msg'])
-    #model="nlptown/bert-base-multilingual-uncased-sentiment"
-       
-
-
+while True:
+        # Afficher la réponse pour tester et boucler
+        for i in response.data:
+            print ('debut')
+            print(i['msg'])
+            #model="nlptown/bert-base-multilingual-uncased-sentiment"
+            res = classifier(i['msg'])
     
-    res = classifier(i['msg'])
-    
-    for item in res:
-        print(item['label'])
-        response = (
-        supabase.table("chatGO-analyzer")
-        .update({"sentiment": item['label'] })
-        .eq("id",i['id'])
+            for item in res:
+                print(item['label'])
+                response = (
+                supabase.table("chatGO-analyzer")
+                .update({"sentiment": item['label'] })
+                .eq("id",i['id'])
         
-        .execute()
+                .execute()
 )
-
-
-
-
-
-
-
