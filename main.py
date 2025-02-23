@@ -11,11 +11,12 @@ key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4
 supabase: Client = create_client(url, key)
 
 # Appel à la table "chatGO-analyzer" et récupération des données
-response = supabase.table("chatGO-analyzer").select("msg,id").is_("sentiment", None).execute()
+
 
 classifier = pipeline("sentiment-analysis")
 
 while True:
+        response = supabase.table("chatGO-analyzer").select("msg,id").is_("sentiment", None).execute()
         # Afficher la réponse pour tester et boucler
         for i in response.data:
             print ('debut')
@@ -31,4 +32,6 @@ while True:
                 .eq("id",i['id'])
         
                 .execute()
+
+      time.sleep(2)
 )
