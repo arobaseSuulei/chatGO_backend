@@ -11,7 +11,7 @@ key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4
 supabase: Client = create_client(url, key)
 
 # Appel à la table "chatGO-analyzer" et récupération des données
-response = supabase.table("chatGO-analyzer").select("msg,id").execute()
+response = supabase.table("chatGO-analyzer").select("msg,id").is_("sentiment", None).execute()
 
 classifier = pipeline("sentiment-analysis")
 
