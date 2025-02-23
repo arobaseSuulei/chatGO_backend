@@ -12,12 +12,14 @@ supabase: Client = create_client(url, key)
 # Appel à la table "chatGO-analyzer" et récupération des données
 response = supabase.table("chatGO-analyzer").select("msg,id").execute()
 
-# Afficher la réponse pour tester et boucler
+classifier = pipeline("sentiment-analysis")
+
+    # Afficher la réponse pour tester et boucler
 for i in response.data:
     print ('debut')
     print(i['msg'])
     #model="nlptown/bert-base-multilingual-uncased-sentiment"
-    classifier = pipeline("sentiment-analysis")
+       
 
 
     
