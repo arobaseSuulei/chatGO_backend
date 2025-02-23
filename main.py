@@ -16,6 +16,7 @@ supabase: Client = create_client(url, key)
 classifier = pipeline("sentiment-analysis")
 
 while True:
+        
         response = supabase.table("chatGO-analyzer").select("msg,id").is_("sentiment", None).execute()
         # Afficher la réponse pour tester et boucler
         for i in response.data:
@@ -33,5 +34,4 @@ while True:
         
                 .execute()
 
-      time.sleep(2)
 )
